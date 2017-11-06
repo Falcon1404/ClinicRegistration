@@ -5,8 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClinicRegistration"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Standardy w projektowaniu systemów dialogowych - Clinic Registration - Joanna Bednarko i Joanna Koszela I6B2S4" Height="600" Width="800" ResizeMode="NoResize" FontFamily="Tw Cen MT">
     <Grid>
-        
+        <GroupBox x:Name="actionGroupBox" Header="Menu" HorizontalAlignment="Left" Height="551" Margin="10,10,0,0" VerticalAlignment="Top" Width="129" RenderTransformOrigin="0.5,0.5">
+            <GroupBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="0.172"/>
+                    <RotateTransform Angle="0.156"/>
+                    <TranslateTransform X="1.074" Y="0.003"/>
+                </TransformGroup>
+            </GroupBox.RenderTransform>
+        </GroupBox>
+        <GroupBox x:Name="dialogGroupBox" Header="Dialog" HorizontalAlignment="Left" Height="550" Margin="147,10,0,0" VerticalAlignment="Top" Width="407"/>
+        <GroupBox x:Name="orderGroupBox" Header="Order" HorizontalAlignment="Left" Height="550" Margin="554,10,0,0" VerticalAlignment="Top" Width="230"/>
+
     </Grid>
 </Window>
