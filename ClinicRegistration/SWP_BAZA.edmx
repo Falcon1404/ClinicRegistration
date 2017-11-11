@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SWPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SWPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Lekarz">
           <Key>
             <PropertyRef Name="ID" />
@@ -41,6 +41,7 @@
           <Property Name="Data" Type="datetime" Nullable="false" />
           <Property Name="Godzina" Type="datetime" Nullable="false" />
           <Property Name="CzyWizytaOdbyta" Type="bit" Nullable="false" />
+          <Property Name="CzyRezerwacja" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_WIZYTA_LEKARZ">
           <End Role="Lekarz" Type="Self.Lekarz" Multiplicity="1" />
@@ -96,8 +97,7 @@
             <End Role="Wizyta" EntitySet="Wizyta" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SWPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -143,6 +143,7 @@
           <NavigationProperty Name="Lekarz" Relationship="Self.FK_WIZYTA_LEKARZ" FromRole="Wizyta" ToRole="Lekarz" />
           <NavigationProperty Name="Pacjent" Relationship="Self.FK_WIZYTA_PACJENT" FromRole="Wizyta" ToRole="Pacjent" />
           <NavigationProperty Name="Specjalnosc" Relationship="Self.FK_WIZYTA_SPECJALNOSC" FromRole="Wizyta" ToRole="Specjalnosc" />
+          <Property Name="CzyRezerwacja" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_WIZYTA_LEKARZ">
           <End Role="Lekarz" Type="Self.Lekarz" Multiplicity="1" />
@@ -234,6 +235,7 @@
           <EntitySetMapping Name="Wizyta">
             <EntityTypeMapping TypeName="SWPModel.Wizyta">
               <MappingFragment StoreEntitySet="Wizyta">
+                <ScalarProperty Name="CzyRezerwacja" ColumnName="CzyRezerwacja" />
                 <ScalarProperty Name="IDLekarz" ColumnName="IDLekarz" />
                 <ScalarProperty Name="IDSpecjalnosc" ColumnName="IDSpecjalnosc" />
                 <ScalarProperty Name="PESEL" ColumnName="PESEL" />

@@ -25,6 +25,7 @@ namespace ClinicRegistration
         {
             InitializeComponent();
             PokazLekarzy();
+            int a = 1;
         }
 
         private void PokazLekarzy()
@@ -39,6 +40,17 @@ namespace ClinicRegistration
                                     Nazwisko = c.Nazwisko
                                 };
                 listaLekarzy = swp.Lekarz.ToList();
+            }
+        }
+
+        private void DodajLekarza(int ID, string Imie, string Nazwisko)
+        {
+            using (var swp = new SWPEntities())
+            {
+                Lekarz lekarz = new Lekarz(ID, Imie, Nazwisko);
+                swp.Lekarz.Add(lekarz);
+                listaLekarzy.Add(lekarz);
+                swp.SaveChanges();
             }
         }
     }

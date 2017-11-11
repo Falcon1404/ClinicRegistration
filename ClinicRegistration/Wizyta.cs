@@ -20,6 +20,7 @@ namespace ClinicRegistration
         public System.DateTime Data { get; set; }
         public System.DateTime Godzina { get; set; }
         public bool CzyWizytaOdbyta { get; set; }
+        public bool CzyRezerwacja { get; set; }
     
         public virtual Lekarz Lekarz { get; set; }
         public virtual Pacjent Pacjent { get; set; }
