@@ -34,12 +34,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Speech, Version=11.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files\Microsoft SDKs\Speech\v11.0\Assembly\Microsoft.Speech.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -58,6 +68,33 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Lekarz.cs">
+      <DependentUpon>SWP_BAZA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pacjent.cs">
+      <DependentUpon>SWP_BAZA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specjalnosc.cs">
+      <DependentUpon>SWP_BAZA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SWP_BAZA.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SWP_BAZA.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SWP_BAZA.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SWP_BAZA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SWP_BAZA.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SWP_BAZA.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Wizyta.cs">
+      <DependentUpon>SWP_BAZA.tt</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -89,13 +126,40 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <EntityDeploy Include="SWP_BAZA.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SWP_BAZA.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="SWP_BAZA.edmx.diagram">
+      <DependentUpon>SWP_BAZA.edmx</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="SWP_BAZA.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>SWP_BAZA.Context.cs</LastGenOutput>
+      <DependentUpon>SWP_BAZA.edmx</DependentUpon>
+    </Content>
+    <Content Include="SWP_BAZA.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SWP_BAZA.edmx</DependentUpon>
+      <LastGenOutput>SWP_BAZA.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

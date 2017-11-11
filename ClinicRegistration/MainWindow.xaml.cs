@@ -20,9 +20,27 @@ namespace ClinicRegistration
     /// </summary>
     public partial class MainWindow : Window
     {
+        public List<Lekarz> listaLekarzy = new List<Lekarz>();
         public MainWindow()
         {
             InitializeComponent();
+            PokazLekarzy();
+        }
+
+        private void PokazLekarzy()
+        {
+            using (var swp = new SWPEntities())
+            {
+                var lekarze = from c in swp.Lekarz
+                                select new
+                                {
+                                    ID = c.ID,
+                                    Imie = c.Imie,
+                                    Nazwisko = c.Nazwisko
+                                };
+                listaLekarzy = swp.Lekarz.ToList();
+            }
         }
     }
+
 }

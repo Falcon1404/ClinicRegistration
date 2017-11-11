@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SWPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Lekarz">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Imie" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Nazwisko" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pacjent">
+          <Key>
+            <PropertyRef Name="PESEL" />
+          </Key>
+          <Property Name="PESEL" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="Imie" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Nazwisko" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telefon" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Specjalnosc">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Nazwa" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Wizyta">
+          <Key>
+            <PropertyRef Name="IDLekarz" />
+            <PropertyRef Name="IDSpecjalnosc" />
+            <PropertyRef Name="PESEL" />
+          </Key>
+          <Property Name="IDLekarz" Type="int" Nullable="false" />
+          <Property Name="IDSpecjalnosc" Type="int" Nullable="false" />
+          <Property Name="PESEL" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="Data" Type="datetime" Nullable="false" />
+          <Property Name="Godzina" Type="datetime" Nullable="false" />
+          <Property Name="CzyWizytaOdbyta" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_WIZYTA_LEKARZ">
+          <End Role="Lekarz" Type="Self.Lekarz" Multiplicity="1" />
+          <End Role="Wizyta" Type="Self.Wizyta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lekarz">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Wizyta">
+              <PropertyRef Name="IDLekarz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WIZYTA_PACJENT">
+          <End Role="Pacjent" Type="Self.Pacjent" Multiplicity="1" />
+          <End Role="Wizyta" Type="Self.Wizyta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pacjent">
+              <PropertyRef Name="PESEL" />
+            </Principal>
+            <Dependent Role="Wizyta">
+              <PropertyRef Name="PESEL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WIZYTA_SPECJALNOSC">
+          <End Role="Specjalnosc" Type="Self.Specjalnosc" Multiplicity="1" />
+          <End Role="Wizyta" Type="Self.Wizyta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specjalnosc">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Wizyta">
+              <PropertyRef Name="IDSpecjalnosc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SWPModelStoreContainer">
+          <EntitySet Name="Lekarz" EntityType="Self.Lekarz" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pacjent" EntityType="Self.Pacjent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Specjalnosc" EntityType="Self.Specjalnosc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Wizyta" EntityType="Self.Wizyta" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_WIZYTA_LEKARZ" Association="Self.FK_WIZYTA_LEKARZ">
+            <End Role="Lekarz" EntitySet="Lekarz" />
+            <End Role="Wizyta" EntitySet="Wizyta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WIZYTA_PACJENT" Association="Self.FK_WIZYTA_PACJENT">
+            <End Role="Pacjent" EntitySet="Pacjent" />
+            <End Role="Wizyta" EntitySet="Wizyta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WIZYTA_SPECJALNOSC" Association="Self.FK_WIZYTA_SPECJALNOSC">
+            <End Role="Specjalnosc" EntitySet="Specjalnosc" />
+            <End Role="Wizyta" EntitySet="Wizyta" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SWPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Lekarz">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Imie" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nazwisko" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Wizyta" Relationship="Self.FK_WIZYTA_LEKARZ" FromRole="Lekarz" ToRole="Wizyta" />
+        </EntityType>
+        <EntityType Name="Pacjent">
+          <Key>
+            <PropertyRef Name="PESEL" />
+          </Key>
+          <Property Name="PESEL" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Imie" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nazwisko" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Telefon" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Wizyta" Relationship="Self.FK_WIZYTA_PACJENT" FromRole="Pacjent" ToRole="Wizyta" />
+        </EntityType>
+        <EntityType Name="Specjalnosc">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Nazwa" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Wizyta" Relationship="Self.FK_WIZYTA_SPECJALNOSC" FromRole="Specjalnosc" ToRole="Wizyta" />
+        </EntityType>
+        <EntityType Name="Wizyta">
+          <Key>
+            <PropertyRef Name="IDLekarz" />
+            <PropertyRef Name="IDSpecjalnosc" />
+            <PropertyRef Name="PESEL" />
+          </Key>
+          <Property Name="IDLekarz" Type="Int32" Nullable="false" />
+          <Property Name="IDSpecjalnosc" Type="Int32" Nullable="false" />
+          <Property Name="PESEL" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Data" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Godzina" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CzyWizytaOdbyta" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Lekarz" Relationship="Self.FK_WIZYTA_LEKARZ" FromRole="Wizyta" ToRole="Lekarz" />
+          <NavigationProperty Name="Pacjent" Relationship="Self.FK_WIZYTA_PACJENT" FromRole="Wizyta" ToRole="Pacjent" />
+          <NavigationProperty Name="Specjalnosc" Relationship="Self.FK_WIZYTA_SPECJALNOSC" FromRole="Wizyta" ToRole="Specjalnosc" />
+        </EntityType>
+        <Association Name="FK_WIZYTA_LEKARZ">
+          <End Role="Lekarz" Type="Self.Lekarz" Multiplicity="1" />
+          <End Role="Wizyta" Type="Self.Wizyta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lekarz">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Wizyta">
+              <PropertyRef Name="IDLekarz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WIZYTA_PACJENT">
+          <End Role="Pacjent" Type="Self.Pacjent" Multiplicity="1" />
+          <End Role="Wizyta" Type="Self.Wizyta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pacjent">
+              <PropertyRef Name="PESEL" />
+            </Principal>
+            <Dependent Role="Wizyta">
+              <PropertyRef Name="PESEL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WIZYTA_SPECJALNOSC">
+          <End Role="Specjalnosc" Type="Self.Specjalnosc" Multiplicity="1" />
+          <End Role="Wizyta" Type="Self.Wizyta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specjalnosc">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Wizyta">
+              <PropertyRef Name="IDSpecjalnosc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SWPEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Lekarz" EntityType="Self.Lekarz" />
+          <EntitySet Name="Pacjent" EntityType="Self.Pacjent" />
+          <EntitySet Name="Specjalnosc" EntityType="Self.Specjalnosc" />
+          <EntitySet Name="Wizyta" EntityType="Self.Wizyta" />
+          <AssociationSet Name="FK_WIZYTA_LEKARZ" Association="Self.FK_WIZYTA_LEKARZ">
+            <End Role="Lekarz" EntitySet="Lekarz" />
+            <End Role="Wizyta" EntitySet="Wizyta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WIZYTA_PACJENT" Association="Self.FK_WIZYTA_PACJENT">
+            <End Role="Pacjent" EntitySet="Pacjent" />
+            <End Role="Wizyta" EntitySet="Wizyta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WIZYTA_SPECJALNOSC" Association="Self.FK_WIZYTA_SPECJALNOSC">
+            <End Role="Specjalnosc" EntitySet="Specjalnosc" />
+            <End Role="Wizyta" EntitySet="Wizyta" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SWPModelStoreContainer" CdmEntityContainer="SWPEntities">
+          <EntitySetMapping Name="Lekarz">
+            <EntityTypeMapping TypeName="SWPModel.Lekarz">
+              <MappingFragment StoreEntitySet="Lekarz">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Imie" ColumnName="Imie" />
+                <ScalarProperty Name="Nazwisko" ColumnName="Nazwisko" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pacjent">
+            <EntityTypeMapping TypeName="SWPModel.Pacjent">
+              <MappingFragment StoreEntitySet="Pacjent">
+                <ScalarProperty Name="PESEL" ColumnName="PESEL" />
+                <ScalarProperty Name="Imie" ColumnName="Imie" />
+                <ScalarProperty Name="Nazwisko" ColumnName="Nazwisko" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Specjalnosc">
+            <EntityTypeMapping TypeName="SWPModel.Specjalnosc">
+              <MappingFragment StoreEntitySet="Specjalnosc">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Nazwa" ColumnName="Nazwa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wizyta">
+            <EntityTypeMapping TypeName="SWPModel.Wizyta">
+              <MappingFragment StoreEntitySet="Wizyta">
+                <ScalarProperty Name="IDLekarz" ColumnName="IDLekarz" />
+                <ScalarProperty Name="IDSpecjalnosc" ColumnName="IDSpecjalnosc" />
+                <ScalarProperty Name="PESEL" ColumnName="PESEL" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Godzina" ColumnName="Godzina" />
+                <ScalarProperty Name="CzyWizytaOdbyta" ColumnName="CzyWizytaOdbyta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

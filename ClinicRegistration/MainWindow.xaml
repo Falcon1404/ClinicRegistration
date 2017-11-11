@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClinicRegistration"
         mc:Ignorable="d"
-        Title="Standardy w projektowaniu systemów dialogowych - Clinic Registration - Joanna Bednarko i Joanna Koszela I6B2S4" Height="600" Width="800" ResizeMode="NoResize" FontFamily="Tw Cen MT">
+        Title="Standardy w projektowaniu systemów dialogowych - Clinic Registration - Joanna Bednarko i Joanna Koszela I6B2S4" Height="400" Width="800" ResizeMode="NoResize" FontFamily="Tw Cen MT">
     <Grid>
-        <GroupBox x:Name="actionGroupBox" Header="Menu" HorizontalAlignment="Left" Height="551" Margin="10,10,0,0" VerticalAlignment="Top" Width="129" RenderTransformOrigin="0.5,0.5">
+        <GroupBox x:Name="actionGroupBox" Header="Menu" HorizontalAlignment="Left" Height="358" Margin="5,10,0,0" VerticalAlignment="Top" Width="139" RenderTransformOrigin="0.5,0.5">
             <GroupBox.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -17,8 +17,8 @@
                 </TransformGroup>
             </GroupBox.RenderTransform>
         </GroupBox>
-        <GroupBox x:Name="dialogGroupBox" Header="Dialog" HorizontalAlignment="Left" Height="550" Margin="147,10,0,0" VerticalAlignment="Top" Width="407"/>
-        <GroupBox x:Name="orderGroupBox" Header="Zamówienie" HorizontalAlignment="Left" Height="550" Margin="554,10,0,0" VerticalAlignment="Top" Width="230"/>
+        <GroupBox x:Name="dialogGroupBox" Header="Dialog" HorizontalAlignment="Left" Height="360" Margin="147,10,0,0" VerticalAlignment="Top" Width="407"/>
+        <GroupBox x:Name="orderGroupBox" Header="Wizyta" HorizontalAlignment="Left" Height="360" Margin="554,10,0,0" VerticalAlignment="Top" Width="230"/>
 
     </Grid>
 </Window>
