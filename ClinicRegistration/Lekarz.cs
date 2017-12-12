@@ -19,7 +19,15 @@ namespace ClinicRegistration
         {
             this.Wizyta = new HashSet<Wizyta>();
         }
-    
+
+        public Lekarz(int ID, string Imie, string Nazwisko)
+        {
+            this.Wizyta = new HashSet<Wizyta>();
+            this.ID = ID;
+            this.Imie = Imie;
+            this.Nazwisko = Nazwisko;
+        }
+
         public int ID { get; set; }
         public string Imie { get; set; }
         public string Nazwisko { get; set; }
